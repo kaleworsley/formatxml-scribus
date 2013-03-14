@@ -86,7 +86,7 @@ class XMLFormatter (xml.sax.handler.ContentHandler):
        if self.first:
            return True
        else:
-           return scribus.getAllText(self.name)[-1] == "\r"
+           return scribus.getAllText(self.name)[-1] == "\n"
        
    def characters(self, content):
        """place text, apply style"""
@@ -145,9 +145,9 @@ def getFile(caption, filter, defaultname, issave):
 def main():
    """Formats xml file using Scribus template"""
    try:
-       xml_file = getFile("XML File", 'XML (*.xml)')
-       template = getFile("Scribus template", "Scribus document (*.sla)")
-       document = getFile("Save document", "Alles (*.*)", xml_file.replace(".xml", ".sla"), False, True)
+       xml_file = getFile("XML File", 'XML (*.xml)', "", False)
+       template = getFile("Scribus template", "Scribus document (*.sla)", "", False)
+       document = getFile("Save document", "Alles (*.*)", xml_file.replace(".xml", ".sla"), True)
        format (xml_file, template, document)
    except UserCanceled:
        pass
